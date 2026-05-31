@@ -1,0 +1,31 @@
+{
+  "nav": {
+    "societa": "Društvo",
+    "news": "Novice",
+    "squadre": "Ekipe",
+    "matches": "Tekme",
+    "contributi": "Prispevki",
+    "documenti": "Uradni dokumenti"
+  },
+  "sections": {
+    "sponsors": "NAŠI SPONZORJI",
+    "news": "NOVICE",
+    "no_news": "Trenutno ni objavljenih novic. Obiščite nas kmalu!",
+    "matches": "NASLEDNJE TEKME",
+    "standings": "LESTVICA",
+    "hero_text": "BOR BASKET ZDRUŽUJE GLOBOKE ZGODOVINSKE KORENINE, PONOS ZDRUŽENE SKUPNOSTI IN NERAZVEZLJIVO DEDIŠČINO, KI NAVDIHUJE VSAKO NOVO GENERACIJO. OD PIONIRJEV PRETEKLOSTI DO PRVAKOV JUTRIŠNJEGA DNE, NAŠA ZGODOVINA SE NADALJUJE NA PARKETU.",
+    "stats": {
+      "founded": "Ustanovitev",
+      "athletes": "Športniki",
+      "championships": "Prvenstva",
+      "teams": "Ekipe"
+    }
+  },
+  "footer": {
+    "description": "Strast, tradicija in ponos od leta 1956. Srce tržaške košarke bije na štadjonu 1.Maja",
+    "societa": "Društvo",
+    "youth": "Mladinski sektor",
+    "contacts": "Stiki",
+    "rights": "© 2026 BOR BASKET TRIESTE. Vse pravice pridržane."
+  }
+}

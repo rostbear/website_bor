@@ -1,0 +1,31 @@
+{
+  "nav": {
+    "societa": "Società",
+    "news": "Notizie",
+    "squadre": "Squadre",
+    "matches": "Partite",
+    "contributi": "Contributi",
+    "documenti": "Documenti Ufficiali"
+  },
+  "sections": {
+    "sponsors": "I NOSTRI SPONSOR",
+    "news": "NOTIZIE",
+    "no_news": "Nessuna notizia pubblicata al momento. Torna a trovarci presto!",
+    "matches": "PROSSIME PARTITE",
+    "standings": "CLASSIFICA",
+    "hero_text": "BOR BASKET UNISCE RADICI STORICHE PROFONDE, L'ORGOGLIO DI UNA COMUNITÀ UNITA E UN'EREDITÀ INDISSOLUBILE PER ISPIRARE OGNI NUOVA GENERAZIONE. DAI PIONIERI DEL PASSATO AI CAMPIONI DI DOMANI, LA NOSTRA STORIA CONTINUA SUL PARQUET.",
+    "stats": {
+      "founded": "Fondazione",
+      "athletes": "Atleti",
+      "championships": "Campionati",
+      "teams": "Squadre"
+    }
+  },
+  "footer": {
+    "description": "Passione, tradizione e orgoglio dal 1956. Il cuore del basket triestino batte sul parquet del PalaBor.",
+    "societa": "Società",
+    "youth": "Settore Giovanile",
+    "contacts": "Contatti",
+    "rights": "© 2026 BOR BASKET TRIESTE. Tutti i diritti riservati."
+  }
+}
