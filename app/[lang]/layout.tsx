@@ -1,7 +1,6 @@
 import React from "react"
 import type { Metadata } from 'next'
 import { Inter, Montserrat, Anton, Archivo_Black, Oswald } from 'next/font/google'
-import { Analytics } from '@vercel/analytics/next'
 import { SmoothScrolling } from "@/components/smooth-scrolling"
 import '../globals.css'
 
@@ -12,9 +11,25 @@ const archivoBlack = Archivo_Black({ weight: '400', subsets: ['latin'], variable
 const oswald = Oswald({ subsets: ['latin'], variable: '--font-oswald' });
 
 export const metadata: Metadata = {
-  title: 'Bor Basket Trieste | Passione e Tradizione dal 1956',
-  description: 'Sito ufficiale del Bor Basket Trieste. Scopri la nostra storia, le prossime partite, i risultati e le ultime notizie dal mondo bianco-blu.',
-  generator: 'v0.app',
+  title: {
+    default: 'Bor Basket Trieste | Passione e Tradizione dal 1956',
+    template: '%s | Bor Basket Trieste'
+  },
+  description: 'Sito ufficiale del Bor Basket Trieste. Scopri la nostra storia, le squadre, le prossime partite, i risultati e le ultime notizie dal mondo bianco-blu.',
+  keywords: ['Basket', 'Trieste', 'Bor Basket', 'Pallacanestro', 'Sport', 'Minibasket', 'Slovenska manjšina'],
+  openGraph: {
+    title: 'Bor Basket Trieste',
+    description: 'Sito ufficiale del Bor Basket Trieste. Scopri la nostra storia, le squadre e le prossime partite.',
+    type: 'website',
+    locale: 'it_IT',
+    siteName: 'Bor Basket Trieste',
+    images: [{
+      url: '/images/logo_bor_basket.png',
+      width: 800,
+      height: 800,
+      alt: 'Logo Bor Basket Trieste',
+    }],
+  },
   icons: {
     icon: [
       {
@@ -25,6 +40,8 @@ export const metadata: Metadata = {
 }
 
 import { CookieBanner } from "@/components/cookie-banner"
+
+export const revalidate = 60;
 
 export default async function RootLayout({
   children,
@@ -41,7 +58,6 @@ export default async function RootLayout({
         <SmoothScrolling>
           {children}
         </SmoothScrolling>
-        <Analytics />
         <CookieBanner />
       </body>
     </html>

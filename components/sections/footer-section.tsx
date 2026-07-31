@@ -77,17 +77,14 @@ export function FooterSection() {
             <div className="text-sm text-white/60 leading-relaxed space-y-1">
               <p>{t.sede}</p>
               <p>{t.address}</p>
+              <p>P.IVA 00794360321 - C.F. 00794360321</p>
             </div>
             <div className="flex gap-4 mt-2">
-              <a href="https://instagram.com" target="_blank" rel="noreferrer" className="text-white/40 hover:text-white transition-colors">
-                <span className="sr-only">Instagram</span>
-                <Instagram size={20} strokeWidth={2} />
-              </a>
-              <a href="https://facebook.com" target="_blank" rel="noreferrer" className="text-white/40 hover:text-white transition-colors">
+              <a href="https://www.facebook.com/KKBorTrst" target="_blank" rel="noreferrer" className="text-white/40 hover:text-white transition-colors">
                 <span className="sr-only">Facebook</span>
                 <Facebook size={20} strokeWidth={2} />
               </a>
-              <a href="https://youtube.com" target="_blank" rel="noreferrer" className="text-white/40 hover:text-white transition-colors">
+              <a href="https://www.youtube.com/@ASD-AKKBORBasket" target="_blank" rel="noreferrer" className="text-white/40 hover:text-white transition-colors">
                 <span className="sr-only">YouTube</span>
                 <Youtube size={20} strokeWidth={2} />
               </a>

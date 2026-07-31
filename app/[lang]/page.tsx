@@ -1,10 +1,11 @@
 import { Header } from "@/components/header";
-import { TechnologySection } from "@/components/sections/technology-section";
-import { GallerySection } from "@/components/sections/gallery-section";
+import { HeroScrollSection } from "@/components/sections/hero-scroll-section";
+import { SportsCenterSection } from "@/components/sections/sports-center-section";
 import { MarqueeSection } from "@/components/sections/marquee-section";
-import { CollectionSection } from "@/components/sections/collection-section";
-import { EditorialSection } from "@/components/sections/editorial-section";
+import { LatestNewsSection } from "@/components/sections/latest-news-section";
+import { SponsorsGridSection } from "@/components/sections/sponsors-grid-section";
 import { FooterSection } from "@/components/sections/footer-section";
+import { FivePerThousandSection } from "@/components/sections/five-per-thousand-section";
 import { getPayload } from 'payload'
 import config from '../../payload.config'
 
@@ -12,7 +13,7 @@ export default async function Home({ params }: { params: Promise<{ lang: 'it' | 
   const resolvedParams = await params;
   const lang = resolvedParams?.lang || 'it';
   let matches: any[] = [];
-  
+  let standings: any[] = [];
   try {
     const payload = await getPayload({ config });
     const response = await payload.find({
@@ -38,18 +39,33 @@ export default async function Home({ params }: { params: Promise<{ lang: 'it' | 
         venue: doc.location || "PalaBor",
       };
     });
+
+    const standingsResponse = await payload.find({
+      collection: 'standings',
+      sort: '-points',
+      limit: 20,
+    });
+    
+    standings = (standingsResponse.docs || []).map((doc, index) => ({
+      pos: index + 1,
+      team: doc.teamName,
+      pts: doc.points,
+      w: doc.won,
+      l: doc.lost,
+    }));
   } catch (error) {
-    console.error("Errore nel recupero delle partite da Payload CMS:", error);
+    console.error("Errore nel recupero dati da Payload CMS:", error);
   }
 
   return (
     <main className="min-h-screen bg-background">
       <Header />
-      <TechnologySection />
+      <HeroScrollSection />
       <MarqueeSection />
-      <GallerySection matches={matches} />
-      <CollectionSection lang={lang} />
-      <EditorialSection />
+      <SportsCenterSection matches={matches} standings={standings} />
+      <LatestNewsSection lang={lang} />
+      <FivePerThousandSection lang={lang} />
+      <SponsorsGridSection lang={lang} />
       <FooterSection />
     </main>
   );

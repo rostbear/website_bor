@@ -85,7 +85,7 @@ const sideImages = [
   },
 ];
 
-export function TechnologySection() {
+export function HeroScrollSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const textSectionRef = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -133,14 +133,14 @@ export function TechnologySection() {
             <div className="flex flex-col" style={{ width: `${sideWidth}%`, gap: `${gap}px`, transform: `translateX(${sideTranslateLeft}%)`, opacity: sideOpacity }}>
               {sideImages.filter(img => img.position === "left").map((img, idx) => (
                 <div key={idx} className="relative overflow-hidden" style={{ flex: img.span, borderRadius: `${borderRadius}px` }}>
-                  <Image src={img.src} alt={img.alt} fill className="object-cover" />
+                  <Image src={img.src} alt={img.alt} fill sizes="(max-width: 768px) 50vw, 25vw" className="object-cover" />
                 </div>
               ))}
             </div>
 
             <div className="relative overflow-hidden" style={{ width: `${centerWidth}%`, height: "100%", flex: "0 0 auto", borderRadius: `${borderRadius}px` }}>
               <video autoPlay muted loop playsInline className="absolute inset-0 h-full w-full object-cover">
-                <source src="/videos/basketball_bg.webm" type="video/webm" />
+                <source src="/videos/bor_home_video.mp4" type="video/mp4" />
               </video>
               <div className="absolute inset-0 bg-black/50" />
               
@@ -201,7 +201,7 @@ export function TechnologySection() {
             <div className="flex flex-col" style={{ width: `${sideWidth}%`, gap: `${gap}px`, transform: `translateX(${sideTranslateRight}%)`, opacity: sideOpacity }}>
               {sideImages.filter(img => img.position === "right").map((img, idx) => (
                 <div key={idx} className="relative overflow-hidden" style={{ flex: img.span, borderRadius: `${borderRadius}px` }}>
-                  <Image src={img.src} alt={img.alt} fill className="object-cover" />
+                  <Image src={img.src} alt={img.alt} fill sizes="(max-width: 768px) 50vw, 25vw" className="object-cover" />
                 </div>
               ))}
             </div>
@@ -255,6 +255,53 @@ export function TechnologySection() {
           </div>
           
           <StatsGrid />
+          
+          {/* Federations & Partners Logos */}
+          <div className="mt-4 md:mt-6 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+            <a 
+              href="https://www.fip.it"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="relative overflow-hidden rounded-2xl md:rounded-[1.5rem] bg-gray-50 border border-gray-200 py-8 px-4 md:py-10 md:px-6 shadow-xl flex flex-col justify-center items-center text-center block transition-transform duration-300 hover:-translate-y-1"
+            >
+              <Image 
+                src="/images/fip-logo.png" 
+                alt="FIP - Federazione Italiana Pallacanestro" 
+                width={300} 
+                height={300} 
+                className="relative z-10 h-24 md:h-32 w-auto object-contain"
+              />
+            </a>
+            <a 
+              href="https://www.zssdi.it"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="relative overflow-hidden rounded-2xl md:rounded-[1.5rem] bg-gray-50 border border-gray-200 py-8 px-4 md:py-10 md:px-6 shadow-xl flex flex-col justify-center items-center text-center block transition-transform duration-300 hover:-translate-y-1"
+            >
+              <Image 
+                src="/images/zssdi-logo.png" 
+                alt="ZSSDI" 
+                width={400} 
+                height={300} 
+                className="relative z-10 h-32 md:h-44 w-auto object-contain"
+              />
+            </a>
+            <a 
+              href="https://www.kzs.si"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="relative overflow-hidden rounded-2xl md:rounded-[1.5rem] bg-gray-50 border border-gray-200 py-8 px-4 md:py-10 md:px-6 shadow-xl flex flex-col justify-center items-center text-center block transition-transform duration-300 hover:-translate-y-1"
+            >
+              <Image 
+                src="/images/logo-kzs.png" 
+                alt="KZS - Košarkarska Zveza Slovenije" 
+                width={300} 
+                height={300} 
+                className="relative z-10 h-32 md:h-40 w-auto object-contain"
+              />
+            </a>
+          </div>
+
         </div>
       </div>
     </section>
@@ -277,9 +324,13 @@ function StatsGrid() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) setIsVisible(true);
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        } else {
+          setIsVisible(false);
+        }
       },
-      { threshold: 0.4 }
+      { threshold: 0.1, rootMargin: "-50px" }
     );
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
@@ -312,7 +363,10 @@ function Counter({ value, isVisible }: { value: string; isVisible: boolean }) {
   const duration = 2000;
 
   useEffect(() => {
-    if (!isVisible) return;
+    if (!isVisible) {
+      setCount(0);
+      return;
+    }
     let startTime: number | null = null;
     let animationFrame: number;
     const animate = (timestamp: number) => {

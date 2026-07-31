@@ -33,7 +33,7 @@ const translateCategory = (cat: string, isSl: boolean) => {
   return map[cat] || cat;
 };
 
-export async function CollectionSection({ lang }: { lang: 'it' | 'sl' }) {
+export async function LatestNewsSection({ lang }: { lang: 'it' | 'sl' }) {
   const isSl = lang === 'sl';
   let articles: any[] = [];
   const { getDictionary } = await import("@/dictionaries");

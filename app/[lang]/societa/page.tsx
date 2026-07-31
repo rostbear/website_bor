@@ -21,17 +21,91 @@ const collaborators = [
   "Paolo Corva", "Riccardo Battilana", "Paolo Savoia", "Stefano Persi", "Nives Cossutta", "Clara Michele", "Erik Filipac"
 ];
 
+const coachCategories = [
+  {
+    category: "BOR RADENSKA C FVG",
+    roles: [
+      { roleIt: "Allenatore", roleSl: "Trener", names: "Saša Krčalic" },
+      { roleIt: "Vice allenatore", roleSl: "Pomožni trener", names: "Alberto Consolari, Almir Kapo" }
+    ]
+  },
+  {
+    category: "Settore Giovanile",
+    categorySl: "Mladinski sektor",
+    roles: [
+      { roleIt: "Responsabile", roleSl: "Vodja", names: "Daniel Crevatin" }
+    ]
+  },
+  {
+    category: "U 17 Maschile BOR/BREG",
+    categorySl: "U 17 Moški BOR/BREG",
+    roles: [
+      { roleIt: "Allenatore", roleSl: "Trener", names: "Dejan Faraglia" },
+      { roleIt: "Vice allenatore", roleSl: "Pomožni trener", names: "Matteo Finatti" }
+    ]
+  },
+  {
+    category: "U 14 Maschile BOR-BREG",
+    categorySl: "U 14 Moški BOR-BREG",
+    roles: [
+      { roleIt: "Allenatore", roleSl: "Trener", names: "Giorgio Krečič, Peter Vodopivec" }
+    ]
+  },
+  {
+    category: "U 14 Femminile BOR-BREG",
+    categorySl: "U 14 Deklice BOR-BREG",
+    roles: [
+      { roleIt: "Allenatrice", roleSl: "Trenerka", names: "Erika Stulle, Anja Battilana, Elisa Sartori" }
+    ]
+  },
+  {
+    category: "BOR MINIBASKET Grandi",
+    categorySl: "BOR MINIBASKET Veliki",
+    roles: [
+      { roleIt: "Istruttori", roleSl: "Vaditelji", names: "Daniel Crevatin, Dejan Faraglia, Matteo Finatti, Peter Stopar, Marko Ursich, Danjel Clara" }
+    ]
+  },
+  {
+    category: "BOR MINIBASKET Medi",
+    categorySl: "BOR MINIBASKET Srednji",
+    roles: [
+      { roleIt: "Istruttori", roleSl: "Vaditelji", names: "Daniel Crevatin, Marko Ursich, Peter Stopar" }
+    ]
+  },
+  {
+    category: "BOR MINIBASKET Piccoli",
+    categorySl: "BOR MINIBASKET Mali",
+    roles: [
+      { roleIt: "Istruttori", roleSl: "Vaditelji", names: "Daniel Crevatin, Alina Pahor, Peter Stopar" }
+    ]
+  }
+];
+
 const datiSocietari = [
   { title: "Denominazione", value: "ASD-AKK BOR Basket", span: 1 },
   { title: "Fondazione", value: "1956", span: 1 },
   { title: "Colori", value: "Blu - Bianco", span: 1 },
   { title: "Codice FIP", value: "000298", span: 1 },
-  { title: "Sede Legale", value: "Strada di Guardiella 7, 34128 Trieste", span: 2 },
-  { title: "Campo di Gioco", value: "Stadio 1° Maggio - Palestra “Bojan Pavletič”", span: 2 },
   { title: "Contatti", value: "Tel: +39 040 5708866 \nkkbor@borbasket.com", span: 1 },
   { title: "P. IVA & PEC", value: "00794360321 \nkkbor@pec.it", span: 1 },
   { title: "IBAN", value: "IT 37 D 08928 02200 010000015973", span: 2 },
+  { title: "Sede Legale", value: "Strada di Guardiella 7, 34128 Trieste", span: 2, href: "https://maps.app.goo.gl/zTKTpz5jx1VnpLSQ6" },
+  { title: "Campo di Gioco", value: "Stadio 1° Maggio - Palestra “Bojan Pavletič”", span: 2, href: "https://maps.app.goo.gl/jF2HCJVjmgJ8sx9KA" },
 ];
+
+import type { Metadata } from 'next';
+
+export async function generateMetadata({ params }: { params: Promise<{ lang: 'it' | 'sl' }> }): Promise<Metadata> {
+  const resolvedParams = await params;
+  const isSl = resolvedParams.lang === 'sl';
+  
+  return {
+    title: isSl ? 'Društvo' : 'La Società',
+    description: isSl 
+      ? 'Odkrijte upravni odbor, trenerje in podatke o KK Bor Trieste. Zgodovina in tradicija od 1956.' 
+      : 'Scopri il direttivo, lo staff tecnico e i dati societari del Bor Basket Trieste. Storia e tradizione dal 1956.',
+  }
+}
 
 export default async function SocietaPage({ params }: { params: Promise<{ lang: 'it' | 'sl' }> }) {
   const resolvedParams = await params;
@@ -48,7 +122,7 @@ export default async function SocietaPage({ params }: { params: Promise<{ lang: 
       if (item.title === "Sede Legale") newTitle = "Sedež";
       if (item.title === "Campo di Gioco") newTitle = "Igrišče";
       if (item.title === "Contatti") newTitle = "Stiki";
-      if (item.title === "P. IVA & PEC") newTitle = "Davčna & PEC";
+      if (item.title === "P. IVA & PEC") newTitle = "Davčna št. & PEC";
     }
     return { ...item, title: newTitle, value: newValue };
   });
@@ -121,15 +195,50 @@ export default async function SocietaPage({ params }: { params: Promise<{ lang: 
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-            {translatedDatiSocietari.map((item, idx) => (
-              <div 
-                key={idx} 
-                className={`bg-gray-50 rounded-xl p-6 md:p-8 border border-gray-100 ${item.span === 2 ? 'md:col-span-2' : ''}`}
-              >
-                <h3 className="text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-[0.2em] mb-2">{item.title}</h3>
-                <p className="text-lg md:text-xl font-black text-[#001666] leading-snug whitespace-pre-line">{item.value}</p>
-              </div>
-            ))}
+            {translatedDatiSocietari.map((item, idx) => {
+              const cardClass = `bg-gray-50 rounded-xl p-6 md:p-8 border border-gray-100 flex flex-col justify-center ${item.span === 2 ? 'md:col-span-2' : ''} ${item.href ? 'hover:shadow-md hover:border-gray-300 transition-all cursor-pointer group' : ''}`;
+              
+              const innerContent = (
+                <>
+                  <h3 className="text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-[0.2em] mb-2">{item.title}</h3>
+                  <div className="flex items-start justify-between gap-2">
+                    <p className="text-lg md:text-xl font-black text-[#001666] leading-snug whitespace-pre-line">{item.value}</p>
+                    {item.href && (
+                      <div className="p-2 bg-gray-200 rounded-full group-hover:bg-[#001666] group-hover:text-white text-gray-500 transition-colors shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                      </div>
+                    )}
+                  </div>
+                </>
+              );
+
+              if (item.href) {
+                return (
+                  <a key={idx} href={item.href} target="_blank" rel="noopener noreferrer" className={cardClass}>
+                    {innerContent}
+                  </a>
+                );
+              }
+
+              return (
+                <div key={idx} className={cardClass}>
+                  {innerContent}
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Map Embed */}
+          <div className="w-full h-[300px] md:h-[400px] rounded-xl overflow-hidden border border-gray-100 shadow-sm mt-4 md:mt-6 relative group">
+            <iframe 
+              width="100%" 
+              height="100%" 
+              style={{ border: 0 }}
+              loading="lazy" 
+              allowFullScreen 
+              src="https://maps.google.com/maps?q=Stadio%201%C2%B0%20Maggio%20Trieste&t=&z=15&ie=UTF8&iwloc=&output=embed"
+              title={isSl ? "Igrišče" : "Campo di Gioco"}
+            ></iframe>
           </div>
           </div>
           
@@ -183,6 +292,38 @@ export default async function SocietaPage({ params }: { params: Promise<{ lang: 
 
           </div>
           </div>
+
+          {/* Allenatori / Trenerji */}
+          <div>
+            <div className="mb-12 border-b border-gray-200 pb-6">
+              <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-[#001666] uppercase">
+                {isSl ? "Trenerji" : "Allenatori"}
+              </h2>
+            </div>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              {coachCategories.map((cat, idx) => (
+                <div key={idx} className="bg-gray-50 rounded-xl p-5 md:p-6 border border-gray-100 flex flex-col justify-start h-full">
+                  <h3 className="text-base md:text-lg font-black uppercase text-[#001666] leading-tight mb-4 pb-3 border-b border-gray-200/60">
+                    {isSl && cat.categorySl ? cat.categorySl : cat.category}
+                  </h3>
+                  <div className="flex flex-col gap-4">
+                    {cat.roles.map((role, roleIdx) => (
+                      <div key={roleIdx} className="flex flex-col">
+                        <p className="text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-1">
+                          {isSl ? role.roleSl : role.roleIt}
+                        </p>
+                        <p className="text-sm font-black uppercase text-[#001666] leading-tight">
+                          {role.names}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
         </div>
       </section>
 

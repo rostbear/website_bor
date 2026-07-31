@@ -59,7 +59,7 @@ export default async function DocumentiPage({ params }: { params: Promise<{ lang
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Statuto Italiano */}
-              <a href="#" className="group flex items-center justify-between bg-gray-50 p-8 rounded-2xl border border-gray-100 hover:border-[#001666] hover:bg-[#001666] transition-colors duration-300">
+              <a href="/documents/statuto_it.pdf" target="_blank" rel="noopener noreferrer" className="group flex items-center justify-between bg-gray-50 p-8 rounded-2xl border border-gray-100 hover:border-[#001666] hover:bg-[#001666] transition-colors duration-300">
                 <div className="flex flex-col gap-2">
                   <span className="text-xs font-bold uppercase tracking-widest text-gray-400 group-hover:text-white/60">{isSl ? "Italijanska Različica" : "Versione Italiana"}</span>
                   <h3 className="text-xl font-black text-[#001666] group-hover:text-white leading-tight">
@@ -72,7 +72,7 @@ export default async function DocumentiPage({ params }: { params: Promise<{ lang
               </a>
 
               {/* Statuto Sloveno */}
-              <a href="#" className="group flex items-center justify-between bg-gray-50 p-8 rounded-2xl border border-gray-100 hover:border-[#001666] hover:bg-[#001666] transition-colors duration-300">
+              <a href="/documents/statuto_sl.pdf" target="_blank" rel="noopener noreferrer" className="group flex items-center justify-between bg-gray-50 p-8 rounded-2xl border border-gray-100 hover:border-[#001666] hover:bg-[#001666] transition-colors duration-300">
                 <div className="flex flex-col gap-2">
                   <span className="text-xs font-bold uppercase tracking-widest text-gray-400 group-hover:text-white/60">{isSl ? "Slovenska Različica" : "Slovenska Verzija"}</span>
                   <h3 className="text-xl font-black text-[#001666] group-hover:text-white leading-tight">
@@ -95,7 +95,7 @@ export default async function DocumentiPage({ params }: { params: Promise<{ lang
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
               {/* Modello Organizzativo */}
-              <a href="#" className="group flex items-center justify-between bg-gray-50 p-8 rounded-2xl border border-gray-100 hover:border-[#001666] hover:bg-[#001666] transition-colors duration-300">
+              <a href="/documents/modello_organizzativo.pdf" target="_blank" rel="noopener noreferrer" className="group flex items-center justify-between bg-gray-50 p-8 rounded-2xl border border-gray-100 hover:border-[#001666] hover:bg-[#001666] transition-colors duration-300">
                 <div className="flex flex-col gap-2 pr-4">
                   <span className="text-xs font-bold uppercase tracking-widest text-gray-400 group-hover:text-white/60">{isSl ? "Pravni Dokument" : "Documento Legale"}</span>
                   <h3 className="text-xl font-black text-[#001666] group-hover:text-white leading-tight">
@@ -108,7 +108,7 @@ export default async function DocumentiPage({ params }: { params: Promise<{ lang
               </a>
 
               {/* Codice Etico */}
-              <a href="#" className="group flex items-center justify-between bg-gray-50 p-8 rounded-2xl border border-gray-100 hover:border-[#001666] hover:bg-[#001666] transition-colors duration-300">
+              <a href="/documents/codice_etico.pdf" target="_blank" rel="noopener noreferrer" className="group flex items-center justify-between bg-gray-50 p-8 rounded-2xl border border-gray-100 hover:border-[#001666] hover:bg-[#001666] transition-colors duration-300">
                 <div className="flex flex-col gap-2 pr-4">
                   <span className="text-xs font-bold uppercase tracking-widest text-gray-400 group-hover:text-white/60">{isSl ? "Pravni Dokument" : "Documento Legale"}</span>
                   <h3 className="text-xl font-black text-[#001666] group-hover:text-white leading-tight">

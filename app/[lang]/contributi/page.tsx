@@ -1,34 +1,28 @@
 import React from "react";
 import { Header } from "@/components/header";
 import { FooterSection } from "@/components/sections/footer-section";
+import { getPayload } from 'payload'
+import config from '../../../payload.config'
 
-const contributi = [
-  { year: 2024, ente: "Repubblica di Slovenia", importo: "€800,00", causale: "Contributo per attività istituzionale" },
-  { year: 2024, ente: "Presidenza del Consiglio", importo: "€3.780,16", causale: "Legge 190/2014 art.1 c.154 5‰ 2022" },
-  
-  { year: 2023, ente: "Repubblica di Slovenia", importo: "€700,00", causale: "Contributo per attività istituzionale" },
-  { year: 2023, ente: "Presidenza del Consiglio", importo: "€3.838,29", causale: "Legge 190/2014 art.1 c.154 5‰ 2022" },
-  
-  { year: 2022, ente: "Repubblica di Slovenia", importo: "€700,00", causale: "Contributo per attività istituzionale" },
-  { year: 2022, ente: "Presidenza del Consiglio", importo: "€3.707,22", causale: "Legge 190/2014 art.1 c.154 5‰ 2021" },
-  { year: 2022, ente: "CONI/F.I.P.", importo: "€3.766,28", causale: "Contributo a sostegno delle spese di sanificazione palestra" },
-  { year: 2022, ente: "CONI/F.I.P.", importo: "€1.857,14", causale: "Contributo a sostegno delle spese di sanificazione palestra" },
-  
-  { year: 2021, ente: "Repubblica di Slovenia", importo: "€700,00", causale: "Contributo per attività istituzionale" },
-  { year: 2021, ente: "Presidenza del Consiglio", importo: "€3.976,85", causale: "Legge 190/2014 art.1 c.154 5‰ anno 2020" },
-  { year: 2021, ente: "Presidenza del Consiglio", importo: "€3.161,85", causale: "Legge 190/2014 art.1 c.154 5‰ anno 2019" },
-  { year: 2021, ente: "CONI/F.I.P.", importo: "€2.889,43", causale: "Contributo a sostegno delle spese di sanificazione palestra" },
-  { year: 2021, ente: "CONI/F.I.P.", importo: "€2.005,71", causale: "Contributo a sostegno delle spese di sanificazione palestra" },
-  { year: 2021, ente: "CONI/F.I.P.", importo: "€1.994,89", causale: "Contributo a sostegno delle spese di sanificazione palestra" },
-  
-  { year: 2020, ente: "Repubblica di Slovenia", importo: "€700,00", causale: "Contributo per attività istituzionale" },
-  { year: 2020, ente: "Presidenza del Consiglio", importo: "€2.949,77", causale: "Legge 190/2014 art.1 c.154 5‰ anno 2018" },
-  { year: 2020, ente: "CONI/F.I.P.", importo: "€4.874,28", causale: "Contributo a sostegno delle spese di sanificazione palestra" },
-];
+
 
 export default async function ContributiPage({ params }: { params: Promise<{ lang: 'it' | 'sl' }> }) {
   const resolvedParams = await params;
   const isSl = resolvedParams.lang === 'sl';
+  
+  let contributi: any[] = [];
+  try {
+    const payload = await getPayload({ config });
+    const response = await payload.find({
+      collection: 'contributi',
+      sort: '-year',
+      limit: 100,
+    });
+    contributi = response.docs || [];
+  } catch (error) {
+    console.error("Errore nel recupero contributi da Payload CMS:", error);
+  }
+
   return (
     <main className="min-h-screen bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
       <Header />

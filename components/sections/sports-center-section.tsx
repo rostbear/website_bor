@@ -46,7 +46,7 @@ const stats = [
 
 
 
-const standings = [
+const fallbackStandings = [
   { pos: 1, team: "Bor Radenska", pts: 28, w: 14, l: 2 },
   { pos: 2, team: "Kontovel", pts: 24, w: 12, l: 4 },
   { pos: 3, team: "Breg San Dorligo", pts: 22, w: 11, l: 5 },
@@ -57,7 +57,7 @@ const standings = [
   { pos: 8, team: "San Vito", pts: 8, w: 4, l: 12 },
 ];
 
-export function GallerySection({ matches = [] }: { matches?: any[] }) {
+export function SportsCenterSection({ matches = [], standings = [] }: { matches?: any[], standings?: any[] }) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
   const pathname = usePathname() || '/it';
@@ -92,7 +92,7 @@ export function GallerySection({ matches = [] }: { matches?: any[] }) {
   }, []);
 
   return (
-    <section id="stats" ref={sectionRef} className="relative overflow-hidden bg-background py-12 md:py-24">
+    <section id="stats" ref={sectionRef} className="relative overflow-hidden bg-background pt-12 pb-16 md:py-24">
       {/* Stylized Basketball Court Lines Background */}
       <div className="absolute inset-0 z-0 pointer-events-none flex items-center justify-center opacity-[0.03]">
         <svg 
@@ -149,7 +149,7 @@ export function GallerySection({ matches = [] }: { matches?: any[] }) {
                 return (
                   <div
                     key={match.id}
-                    className={`relative overflow-hidden rounded-[2rem] p-6 md:p-8 flex flex-col justify-center group transition-all duration-700 flex-1 min-h-[140px] ${
+                    className={`relative overflow-hidden rounded-[2rem] px-3 py-[1.125rem] md:px-5 md:py-[1.875rem] flex flex-col justify-center group transition-all duration-700 flex-1 min-h-[140px] ${
                       isNext
                         ? "bg-white shadow-[0_20px_60px_-15px_rgba(255,255,255,0.2)] z-10 md:scale-[1.02]"
                         : "bg-white/5 backdrop-blur-xl border border-white/10 hover:bg-white/10"
@@ -194,41 +194,41 @@ export function GallerySection({ matches = [] }: { matches?: any[] }) {
           </div>
 
           {/* Right Side: Classifica */}
-          <div className="flex flex-col h-full mt-12 lg:mt-0">
+          <div className="flex flex-col h-full">
             <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-white mb-8 md:mb-12">
               {t.standingsTitle}
             </h2>
             
-            <div className="flex-1 rounded-[2rem] md:rounded-[2.5rem] bg-white/5 backdrop-blur-2xl border border-white/10 p-6 md:p-10 shadow-2xl flex flex-col justify-center overflow-hidden">
+            <div className="flex-1 rounded-[2rem] md:rounded-[2.5rem] bg-white/5 backdrop-blur-2xl border border-white/10 p-3 md:p-5 shadow-2xl flex flex-col justify-start overflow-hidden">
               <div className="overflow-x-auto -mx-2 px-2 scrollbar-hide">
                 <table className="w-full text-left border-separate border-spacing-y-2 md:border-spacing-y-3 min-w-[300px]">
                   <thead>
                     <tr>
-                      <th className="pb-4 text-[10px] uppercase tracking-widest text-white/40 font-bold pl-2">Pos</th>
-                      <th className="pb-4 text-[10px] uppercase tracking-widest text-white/40 font-bold">Squadra</th>
-                      <th className="pb-4 text-[10px] uppercase tracking-widest text-white/40 font-bold text-center">V</th>
+                      <th className="pb-4 text-[10px] uppercase tracking-widest text-white/40 font-bold pl-2">{isSl ? "Mesto" : "Pos"}</th>
+                      <th className="pb-4 text-[10px] uppercase tracking-widest text-white/40 font-bold">{isSl ? "Ekipa" : "Squadra"}</th>
+                      <th className="pb-4 text-[10px] uppercase tracking-widest text-white/40 font-bold text-center">{isSl ? "Z" : "V"}</th>
                       <th className="pb-4 text-[10px] uppercase tracking-widest text-white/40 font-bold text-center">P</th>
-                      <th className="pb-4 text-[10px] uppercase tracking-widest text-white/40 font-bold text-right pr-2">Pts</th>
+                      <th className="pb-4 text-[10px] uppercase tracking-widest text-white/40 font-bold text-right pr-2">{isSl ? "Točke" : "Pts"}</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {standings.map((team) => {
-                      const isBor = team.team === "Bor Radenska";
+                    {(standings.length > 0 ? standings : fallbackStandings).map((team) => {
+                      const isBor = team.team.toLowerCase().includes("bor");
                       return (
                         <tr key={team.pos} className={`transition-colors duration-300 ${isBor ? "bg-white" : "bg-white/5"} rounded-xl md:rounded-2xl`}>
-                          <td className={`py-3 md:py-5 text-xs md:text-sm font-black w-8 md:w-12 pl-4 md:pl-6 rounded-l-xl md:rounded-l-2xl ${isBor ? "text-[#001666]" : "text-white/60"}`}>
+                          <td className={`py-2 md:py-3 text-xs md:text-sm font-black w-8 md:w-12 pl-4 md:pl-6 rounded-l-xl md:rounded-l-2xl ${isBor ? "text-[#001666]" : "text-white/60"}`}>
                             {team.pos}
                           </td>
-                          <td className={`py-3 md:py-5 text-xs md:text-base font-bold truncate max-w-[120px] md:max-w-none ${isBor ? "text-[#001666]" : "text-white/80"}`}>
+                          <td className={`py-2 md:py-3 text-xs md:text-base font-bold truncate max-w-[120px] md:max-w-none ${isBor ? "text-[#001666]" : "text-white/80"}`}>
                             {team.team}
                           </td>
-                          <td className={`py-3 md:py-5 text-xs md:text-sm text-center font-medium ${isBor ? "text-[#001666]/80" : "text-white/50"}`}>
+                          <td className={`py-2 md:py-3 text-xs md:text-sm text-center font-medium ${isBor ? "text-[#001666]/80" : "text-white/50"}`}>
                             {team.w}
                           </td>
-                          <td className={`py-3 md:py-5 text-xs md:text-sm text-center font-medium ${isBor ? "text-[#001666]/80" : "text-white/50"}`}>
+                          <td className={`py-2 md:py-3 text-xs md:text-sm text-center font-medium ${isBor ? "text-[#001666]/80" : "text-white/50"}`}>
                             {team.l}
                           </td>
-                          <td className={`py-3 md:py-5 text-sm md:text-lg font-black text-right pr-4 md:pr-6 rounded-r-xl md:rounded-r-2xl ${isBor ? "text-[#001666]" : "text-white/80"}`}>
+                          <td className={`py-2 md:py-3 text-sm md:text-lg font-black text-right pr-4 md:pr-6 rounded-r-xl md:rounded-r-2xl ${isBor ? "text-[#001666]" : "text-white/80"}`}>
                             {team.pts}
                           </td>
                         </tr>

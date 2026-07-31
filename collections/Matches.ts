@@ -2,6 +2,10 @@ import { CollectionConfig } from 'payload'
 
 export const Matches: CollectionConfig = {
   slug: 'matches',
+  labels: {
+    singular: 'Partita',
+    plural: 'Partite',
+  },
   admin: {
     useAsTitle: 'matchLabel',
     defaultColumns: ['matchDate', 'homeTeam', 'awayTeam', 'status'],

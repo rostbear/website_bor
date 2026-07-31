@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: bor_website
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PAYLOAD_SECRET=${PAYLOAD_SECRET:-your-very-secure-secret-key}
+      - DATABASE_URL=file:/app/data/payload.db
+    volumes:
+      - ./data:/app/data
+      - ./public/media:/app/public/media

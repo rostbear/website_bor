@@ -21,7 +21,8 @@ export function Header() {
       squadre: "Squadre",
       matches: "Partite",
       contributi: "Contributi",
-      documenti: "Documenti"
+      documenti: "Documenti",
+      sponsors: "Sponsor"
     },
     sl: {
       societa: "Društvo",
@@ -29,7 +30,8 @@ export function Header() {
       squadre: "Ekipe",
       matches: "Tekme",
       contributi: "Prispevki",
-      documenti: "Dokumenti"
+      documenti: "Dokumenti",
+      sponsors: "Sponzorji"
     }
   };
 
@@ -54,7 +56,7 @@ export function Header() {
 
   return (
     <header 
-      className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-4xl transition-all duration-300 border ${
+      className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-6xl transition-all duration-300 border ${
         isScrolled || isMenuOpen 
           ? "bg-[#001666]/75 backdrop-blur-2xl rounded-3xl border-white/10" 
           : "bg-transparent border-transparent"
@@ -107,6 +109,22 @@ export function Header() {
           >
             {t.documenti}
           </Link>
+          <Link
+            href={`${prefix}#sponsors`}
+            className="text-xs font-semibold uppercase tracking-wider transition-colors text-white/80 hover:text-white"
+          >
+            {t.sponsors}
+          </Link>
+          <Link
+            href={`${prefix}/live`}
+            className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider transition-colors text-red-500 hover:text-red-400"
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+            </span>
+            LIVE
+          </Link>
           <button onClick={toggleLang} className="flex items-center gap-1 text-xs font-semibold uppercase tracking-wider text-white/80 hover:text-white transition-colors">
             <Globe size={14} /> {currentLang === 'it' ? 'IT' : 'SL'}
           </button>
@@ -114,6 +132,16 @@ export function Header() {
 
         {/* Mobile controls */}
         <div className="flex items-center gap-4 md:hidden">
+          <Link
+            href={`${prefix}/live`}
+            className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider transition-colors text-red-500 hover:text-red-400 mr-2"
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+            </span>
+            LIVE
+          </Link>
           <button onClick={toggleLang} className="text-white hover:opacity-80 transition-opacity flex items-center gap-1 text-sm font-bold">
             <Globe size={18} /> {currentLang === 'it' ? 'IT' : 'SL'}
           </button>
@@ -179,6 +207,28 @@ export function Header() {
             >
               <span>{t.documenti}</span>
               <span className="text-white/20 group-hover:text-white group-hover:translate-x-1 transition-all duration-300 font-light text-base">→</span>
+            </Link>
+            <Link
+              href={`${prefix}#sponsors`}
+              className="text-sm font-bold uppercase tracking-wider text-white/80 hover:text-white hover:bg-white/10 px-4 py-3 rounded-2xl transition-all duration-300 flex items-center justify-between group"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              <span>{t.sponsors}</span>
+              <span className="text-white/20 group-hover:text-white group-hover:translate-x-1 transition-all duration-300 font-light text-base">→</span>
+            </Link>
+            <Link
+              href={`${prefix}/live`}
+              className="text-sm font-bold uppercase tracking-wider text-red-400 hover:text-red-300 hover:bg-red-500/10 px-4 py-3 rounded-2xl transition-all duration-300 flex items-center justify-between group"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              <span className="flex items-center gap-2">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+                </span>
+                LIVE
+              </span>
+              <span className="text-red-500/50 group-hover:text-red-400 group-hover:translate-x-1 transition-all duration-300 font-light text-base">→</span>
             </Link>
           </nav>
         </div>
