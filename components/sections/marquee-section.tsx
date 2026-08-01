@@ -5,8 +5,8 @@ import { usePathname } from "next/navigation";
 export function MarqueeSection() {
   const pathname = usePathname() || '/it';
   const isSl = pathname.startsWith('/sl');
-  const text1 = isSl ? "STRAST • DISCIPLINA • ZMAGA" : "PASSIONE • DISCIPLINA • VITTORIA";
-  const text2 = "BOR BASKET TRIESTE";
+  const text1 = isSl ? "STRAST • TRUD • ZMAGA" : "PASSIONE • IMPEGNO • VITTORIA";
+  const text2 = isSl ? "BOR BASKET TRST" : "BOR BASKET TRIESTE";
 
   return (
     <div className="bg-royal-blue py-3 md:py-4 overflow-hidden w-full border-y border-white/5 relative grain-overlay">
